@@ -1,6 +1,5 @@
 import {useRef, useState} from "react";
 
-
 const DiaryEditor = () => {
   const authorInput = useRef();
   const contentInput = useRef();
@@ -54,6 +53,7 @@ const DiaryEditor = () => {
         />
       </div>
       <div>
+        <span>오늘의 감정 점수 : </span>
         <select
           name="emotion"
           value={state.emotion}

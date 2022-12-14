@@ -3,7 +3,8 @@
     text-align: center;
     padding: 20px;
 }
-.DiaryEditor input, textarea {
+.DiaryEditor input, textarea{
+
     margin-bottom: 20px;
     width: 500px;
     padding: 10px;
