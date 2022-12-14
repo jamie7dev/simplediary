@@ -18,20 +18,22 @@ const DiaryEditor = () => {
   };
 
   const handleSubmit = () => {
-    if (state.author.length < 1){
+    if(state.author.length < 1){
+      // alert("작성자에 최소 한 글자 이상 입력해주세요"); //alert은 좋은 UX가 아님 => focus를 주는 방향으로 제작
+      //focus
       authorInput.current.focus();
+      return;  // 더 이상 진행 안 되도록 방지
+    }
+    if(state.content.length < 5){
+      //focus
+      contentInput.current.focus();
       return; // 더 이상 진행 안 되도록 방지
     }
-    if (state.content.length < 3){
-      authorInput.current.focus();
-      return; // 더 이상 진행 안 되도록 방지
-    }
-
-    console.log(state);
-    alert("저장 성공!");
-  };
+    alert("저장 성공");
+  }
 
   return(
+    //css 적용 시 컴포넌트 이름과 최상위 div태그 이름이 같으면 좋음
     <div className="DiaryEditor">
       <h2>오늘의 일기</h2>
       <div>
