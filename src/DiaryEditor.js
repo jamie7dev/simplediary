@@ -1,6 +1,10 @@
-import { useState } from "react";
+import {useRef, useState} from "react";
+
 
 const DiaryEditor = () => {
+  const authorInput = useRef();
+  const contentInput = useRef();
+
   const [state, setState] = useState({
     author: "",
     content: "",
@@ -15,7 +19,17 @@ const DiaryEditor = () => {
   };
 
   const handleSubmit = () => {
-    console.log(state);
+    if(state.author.length < 1){
+      // alert("작성자에 최소 한 글자 이상 입력해주세요"); //alert은 좋은 UX가 아님 => focus를 주는 방향으로 제작
+      //focus
+      authorInput.current.focus();
+      return;  // 더 이상 진행 안 되도록 방지
+    }
+    if(state.content.length < 5){
+      //focus
+      contentInput.current.focus();
+      return; // 더 이상 진행 안 되도록 방지
+    }
     alert("저장 성공");
   }
 
@@ -25,6 +39,7 @@ const DiaryEditor = () => {
       <h2>오늘의 일기</h2>
       <div>
         <input
+          ref={authorInput}
           name="author"
           value={state.author}
           onChange={handleChangeState}
@@ -32,6 +47,7 @@ const DiaryEditor = () => {
       </div>
       <div>
         <textarea
+          ref={contentInput}
           name="content"
           value={state.content}
           onChange={handleChangeState}
