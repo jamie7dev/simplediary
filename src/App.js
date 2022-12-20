@@ -1,7 +1,13 @@
 import './App.css';
 import DiaryEditor from './DiaryEditor';
 import DiaryList from './DiaryList';
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react';
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -31,7 +37,7 @@ const App = () => {
     getData();
   }, []);
 
-  const onCreate = (author, content, emotion) => {
+  const onCreate = useCallback((author, content, emotion) => {
     const created_date = new Date().getTime();
     const newItem = {
       author,
@@ -41,23 +47,20 @@ const App = () => {
       id: dataId.current,
     };
     dataId.current += 1; //id 1씩 증가
-    setData([newItem, ...data]);
-  };
+    setData(data => [newItem, ...data]);
+  }, []);
 
-  const onRemove = targetId => {
-    const newDiaryList = data.filter(it => it.id !== targetId);
-    //삭제한 아이템 빼고 새로운 배열 생성해서 data에 새로 넣어주기
-    setData(newDiaryList);
-  };
+  const onRemove = useCallback(targetId => {
+    setData(data => data.filter(it => it.id !== targetId));
+  }, []);
 
-  const onEdit = (targetId, newContent) => {
-    setData(
-      //일치하는 id 검사 => 일치하면 수정 대상이 되는 원소
+  const onEdit = useCallback((targetId, newContent) => {
+    setData(data =>
       data.map(it =>
         it.id === targetId ? { ...it, content: newContent } : it,
       ),
     );
-  };
+  }, []);
 
   const getDiaryAnalysis = useMemo(() => {
     const goodCount = data.filter(it => it.emotion >= 3).length;
