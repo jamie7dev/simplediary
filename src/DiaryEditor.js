@@ -1,16 +1,16 @@
-import {useRef, useState} from "react";
+import { useRef, useState } from 'react';
 
-const DiaryEditor = () => {
+const DiaryEditor = ({ onCreate }) => {
   const authorInput = useRef();
   const contentInput = useRef();
 
   const [state, setState] = useState({
-    author: "",
-    content: "",
+    author: '',
+    content: '',
     emotion: 1,
   });
 
-  const handleChangeState = (e) => {
+  const handleChangeState = e => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
@@ -18,20 +18,26 @@ const DiaryEditor = () => {
   };
 
   const handleSubmit = () => {
-    if (state.author.length < 1){
+    if (state.author.length < 1) {
       authorInput.current.focus();
       return; // 더 이상 진행 안 되도록 방지
     }
-    if (state.content.length < 3){
+    if (state.content.length < 2) {
       authorInput.current.focus();
       return; // 더 이상 진행 안 되도록 방지
     }
 
-    console.log(state);
-    alert("저장 성공!");
+    onCreate(state.author, state.content, state.emotion);
+    alert('저장 성공!');
+    //일기 작성 후 인풋창 초기화
+    setState({
+      author: '',
+      content: '',
+      emotion: 1,
+    });
   };
 
-  return(
+  return (
     <div className="DiaryEditor">
       <h2>오늘의 일기</h2>
       <div>
