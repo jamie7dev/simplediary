@@ -1,16 +1,16 @@
-import {useRef, useState} from "react";
+import { useRef, useState } from 'react';
 
-const DiaryEditor = () => {
+const DiaryEditor = ({ onCreate }) => {
   const authorInput = useRef();
   const contentInput = useRef();
 
   const [state, setState] = useState({
-    author: "",
-    content: "",
+    author: '',
+    content: '',
     emotion: 1,
   });
 
-  const handleChangeState = (e) => {
+  const handleChangeState = e => {
     setState({
       ...state,
       [e.target.name]: e.target.value,
@@ -18,22 +18,26 @@ const DiaryEditor = () => {
   };
 
   const handleSubmit = () => {
-    if(state.author.length < 1){
-      // alert("작성자에 최소 한 글자 이상 입력해주세요"); //alert은 좋은 UX가 아님 => focus를 주는 방향으로 제작
-      //focus
+    if (state.author.length < 1) {
       authorInput.current.focus();
-      return;  // 더 이상 진행 안 되도록 방지
-    }
-    if(state.content.length < 5){
-      //focus
-      contentInput.current.focus();
       return; // 더 이상 진행 안 되도록 방지
     }
-    alert("저장 성공");
-  }
+    if (state.content.length < 2) {
+      authorInput.current.focus();
+      return; // 더 이상 진행 안 되도록 방지
+    }
 
-  return(
-    //css 적용 시 컴포넌트 이름과 최상위 div태그 이름이 같으면 좋음
+    onCreate(state.author, state.content, state.emotion);
+    alert('저장 성공!');
+    //일기 작성 후 인풋창 초기화
+    setState({
+      author: '',
+      content: '',
+      emotion: 1,
+    });
+  };
+
+  return (
     <div className="DiaryEditor">
       <h2>오늘의 일기</h2>
       <div>
