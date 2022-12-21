@@ -17,13 +17,13 @@ const DiaryItem = ({ author, content, emotion, created_date, id }) => {
     }
   };
 
-  //수정 취소 버튼 클릭 시 수정 내용 초기화하는 함수
+  // '수정 취소' 버튼 클릭 시 수정 내용 초기화
   const handleQuitEdit = () => {
     setIsEdit(false);
-    setLocalContent(content); //원래 데이터 보여주기
+    setLocalContent(content);
   };
 
-  // 수정 완료 버튼 클릭 시 내용 반영되는 함수
+  // '수정 완료' 버튼 클릭 시 내용 반영
   const handleEdit = () => {
     if (localContent.length < 2) {
       localContentInput.current.focus();

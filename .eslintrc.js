@@ -1,13 +1,13 @@
 // .eslintrc.js
 module.exports = {
-  env: {
-    browser: true,
-    es6: true,
-    node: true,
-  },
-  extends: ['plugin:prettier/recommended'],
+  extends: ['react-app', 'prettier'],
+  plugins: ['prettier'],
   rules: {
-    'react/jsx-filename-extension': 0,
-    'no-console': 0,
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 };

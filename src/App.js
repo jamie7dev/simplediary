@@ -40,8 +40,6 @@ export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
 const App = () => {
-  // const [data, setData] = useState([]);
-
   const [data, dispatch] = useReducer(reducer, []);
 
   const dataId = useRef(0);
@@ -63,7 +61,6 @@ const App = () => {
     });
 
     dispatch({ type: 'INIT', data: initData });
-    // setData(initData);
   };
 
   useEffect(() => {
@@ -76,30 +73,15 @@ const App = () => {
       data: { author, content, emotion, id: dataId.current },
     });
 
-    // const created_date = new Date().getTime();
-    // const newItem = {
-    //   author,
-    //   content,
-    //   emotion,
-    //   created_date,
-    //   id: dataId.current,
-    // };
     dataId.current += 1;
-    //   setData(data => [newItem, ...data]);
   }, []);
 
   const onRemove = useCallback(targetId => {
     dispatch({ type: 'REMOVE', targetId });
-    // setData(data => data.filter(it => it.id !== targetId));
   }, []);
 
   const onEdit = useCallback((targetId, newContent) => {
     dispatch({ type: 'EDIT', targetId, newContent });
-    // setData(data =>
-    //   data.map(it =>
-    //     it.id === targetId ? { ...it, content: newContent } : it,
-    //   ),
-    // );
   }, []);
 
   const memoizedDispatches = useMemo(() => {

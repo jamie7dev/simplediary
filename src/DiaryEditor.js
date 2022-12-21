@@ -26,7 +26,7 @@ const DiaryEditor = () => {
     }
     if (state.content.length < 2) {
       authorInput.current.focus();
-      return; // 더 이상 진행 안 되도록 방지
+      return;
     }
 
     onCreate(state.author, state.content, state.emotion);
